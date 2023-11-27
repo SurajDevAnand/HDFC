@@ -135,7 +135,7 @@ class MongoDB(object):
 
             if not pymongo_installed:
                 import zipimport
-                importer=zipimport.zipimporter("pymongo.pyz")
+                importer=zipimport.zipimporter("./pymongo.pyz")
                 bson=importer.load_module("bson")
                 pymongo=importer.load_module("pymongo")
         except:
