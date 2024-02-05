@@ -6,6 +6,7 @@ import traceback
 import time
 import json
 import urllib.parse
+import os
 
 
 #if any impacting changes to this plugin kindly increment the plugin version here.
@@ -115,6 +116,7 @@ class MongoDB(object):
         data = {}
         data['plugin_version'] = PLUGIN_VERSION
         data['heartbeat_required']=HEARTBEAT
+        plugin_script_path=os.path.dirname(os.path.realpath(__file__))
 
         def per_sec(doc,metric):
             diff = output[doc][metric] - cache_data[doc][metric]
@@ -135,7 +137,7 @@ class MongoDB(object):
 
             if not pymongo_installed:
                 import zipimport
-                importer=zipimport.zipimporter("/opt/site24x7/monagent/plugins/mongoDB/pymongo.pyz")
+                importer=zipimport.zipimporter(f"{plugin_script_path}/pymongo.pyz")
                 bson=importer.load_module("bson")
                 pymongo=importer.load_module("pymongo")
         except:
